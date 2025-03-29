@@ -3,6 +3,7 @@ import 'package:poon_estock_application/core/extension/extension.dart';
 import 'package:poon_estock_application/core/utility/app_alert_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import '../../config/config.dart';
 import '../init/constants/image/image_constants.dart';
 import 'app_button.dart';
@@ -62,11 +63,9 @@ class AppImageView {
         onTap:
             onClick
                 ? () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => PhotoView(namePath: name),
-                    ),
+                  context.push(
+                    '/widget-view',
+                    extra: {'widget': PhotoView(namePath: name)},
                   );
                 }
                 : null,
@@ -133,12 +132,9 @@ class AppImageView {
         onTap:
             (onClick && name != null)
                 ? () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder:
-                          (context) => PhotoView(url: true, namePath: name),
-                    ),
+                  context.push(
+                    '/widget-view',
+                    extra: {'widget': PhotoView(url: true, namePath: name)},
                   );
                 }
                 : null,

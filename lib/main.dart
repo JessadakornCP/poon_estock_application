@@ -38,7 +38,8 @@ List<MapLocale> _mapLocales = [
   const MapLocale('th', AppLocale.th, countryCode: 'TH'),
   const MapLocale('en', AppLocale.en, countryCode: 'US'),
 ];
-
+GlobalKey<NavigatorState>? navigatorKey =
+    AppRouteConfig.instance.router.routerDelegate.navigatorKey;
 Future<void> _init() async {
   Intl.defaultLocale = 'th';
   WidgetsFlutterBinding.ensureInitialized();
@@ -52,29 +53,19 @@ Future<void> _init() async {
   ]);
 }
 
-final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    // Return the app with GoRouter for navigation
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      navigatorKey: navigatorKey,
       localizationsDelegates: _localization.localizationsDelegates,
       supportedLocales: _localization.supportedLocales,
       locale: _localization.currentLocale,
       themeMode: ThemeMode.light,
       theme: AppTheme.lightTheme(context),
-
-      // home: const LoginScreen(),
-      // home: SettingScreen(),
-      // home: MyProductScreen(),
-      // home: TrackJobStatusScreen(),
-      // home: DashboardScreen(),
-      // home: SystemProblemReportScreen(),
-      // home: const ChatMessageScreen(),
-      onGenerateRoute: NavigationRoute.instance.generateRoute,
+      routerConfig: AppRouteConfig.instance.router,
     );
   }
 }

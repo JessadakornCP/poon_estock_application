@@ -49,19 +49,14 @@ class RestService {
       debugPrint('response.body => ${response.body}');
       final singleton = Singleton();
       await singleton.clearAll();
-      if (navigatorKey.currentContext!.mounted) {
-        AppNav.toNameAndRemoveUntil(
-          navigatorKey.currentContext!,
-          AppNavConstants.LOGIN,
-        );
+      BuildContext? context = navigatorKey?.currentContext;
+      if (context != null && context.mounted) {
+        AppNav.toNameAndRemoveUntil(context, AppNavConstants.LOGIN);
         String textError =
             response.statusCode == 401
                 ? 'ไม่ได้รับอนุญาต'
                 : 'เซสชันหมดอายุ กรุณาเข้าสู่ระบบใหม่';
-        AppAlertDialog.error(
-          navigatorKey.currentContext!,
-          textError: textError,
-        );
+        AppAlertDialog.error(context, textError: textError);
       }
       throw response.body;
     }

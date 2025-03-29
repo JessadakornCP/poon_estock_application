@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-
 import '../../app/splash/view/splash_screen.dart';
-import '../../main.dart';
 import '../init/navigation/navigation.dart';
 import '../init/shared_preferences/shared_preferences.dart';
 import '../provider/global_provider.dart';
@@ -65,7 +63,13 @@ class _AppLifecycleTrackerState extends State<AppLifecycleTracker>
   void _callApi(AppState state) async {
     switch (state) {
       case AppState.resumed:
-        BuildContext? context = navigatorKey.currentState?.context;
+        BuildContext? context =
+            AppRouteConfig
+                .instance
+                .router
+                .routerDelegate
+                .navigatorKey
+                .currentContext;
         if (context != null) {
           final provider = context.read<GlobalProvider>();
           final userProfileProvider = context.read<UserProfileProvider>();

@@ -10,6 +10,26 @@ extension MediaQueryExtension on BuildContext {
   double get height => mediaQuery.size.height;
   double get width => mediaQuery.size.width;
 
+  DeviceScreen get _screenSize => screenSize();
+  bool get _isMobile => _screenSize == DeviceScreen.mobile;
+  bool get _isTablet => _screenSize == DeviceScreen.tablet;
+
+  //   double get screenHValue =>
+  //     h *
+  //     (_isMobile
+  //         ? 0.015
+  //         : _isTablet
+  //             ? 0.015
+  //             : 0.015);
+
+  // double get screenWValue =>
+  //     w *
+  //     (_isMobile
+  //         ? 0.015
+  //         : _isTablet
+  //             ? 0.015
+  //             : 0.015);
+
   double get lowValue => height * 0.01;
   double get low3xValue => height * 0.03;
   double get normalValue => height * 0.02;

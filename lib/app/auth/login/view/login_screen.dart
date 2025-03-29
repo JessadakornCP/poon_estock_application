@@ -65,7 +65,7 @@ class LoginScreen extends StatelessWidget {
             Column(
               children: [
                 Text('เข้าสู่ระบบ', style: AppTextStyle(context).kHeadline5),
-                Text('POON eSERVICE', style: AppTextStyle(context).kHeadline5),
+                Text('POON eSTOCK', style: AppTextStyle(context).kHeadline5),
               ],
             ),
             context.emptySizedHeightBoxLow3x,

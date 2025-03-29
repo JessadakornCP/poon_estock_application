@@ -102,14 +102,15 @@ class VersionStatus {
 class AppCheckVersion {
   Future<bool> getVersionStatus(BuildContext context) async {
     try {
-      VersionStatus? versionStatus =
-          await AppCheckVersion().getVersionStore(context);
+      VersionStatus? versionStatus = await AppCheckVersion().getVersionStore(
+        context,
+      );
       if (versionStatus != null && versionStatus.canUpdate) {
         if (context.mounted) {
           AppAlertDialog.message(
             context,
             title: Text(
-              'POON eSERVICE เวอร์ชั่นใหม่',
+              'POON eSTOCK เวอร์ชั่นใหม่',
               style: AppTextStyle(context).kHeadline6,
             ),
             content: Column(
@@ -121,15 +122,15 @@ class AppCheckVersion {
                     children: [
                       TextSpan(
                         text: 'กรุณาอัปเดตแอป ',
-                        style: AppTextStyle(context).kBodyDefault.copyWith(
-                              color: AppColors.instance.grey,
-                            ),
+                        style: AppTextStyle(
+                          context,
+                        ).kBodyDefault.copyWith(color: AppColors.instance.grey),
                       ),
                       TextSpan(
-                        text: 'POON eSERVICE',
-                        style: AppTextStyle(context).kBodyDefault.copyWith(
-                              fontWeight: FontWeight.bold,
-                            ),
+                        text: 'POON eSTOCK',
+                        style: AppTextStyle(
+                          context,
+                        ).kBodyDefault.copyWith(fontWeight: FontWeight.bold),
                       ),
                     ],
                   ),
@@ -139,15 +140,15 @@ class AppCheckVersion {
                     children: [
                       TextSpan(
                         text: 'เวอร์ชั่นใหม่ : ',
-                        style: AppTextStyle(context).kBodyDefault.copyWith(
-                              color: AppColors.instance.grey,
-                            ),
+                        style: AppTextStyle(
+                          context,
+                        ).kBodyDefault.copyWith(color: AppColors.instance.grey),
                       ),
                       TextSpan(
                         text: versionStatus.storeVersion,
-                        style: AppTextStyle(context).kBodyDefault.copyWith(
-                              fontWeight: FontWeight.bold,
-                            ),
+                        style: AppTextStyle(
+                          context,
+                        ).kBodyDefault.copyWith(fontWeight: FontWeight.bold),
                       ),
                     ],
                   ),
@@ -157,15 +158,15 @@ class AppCheckVersion {
                     children: [
                       TextSpan(
                         text: 'เวอร์ชั่นปัจจุบัน : ',
-                        style: AppTextStyle(context).kBodyDefault.copyWith(
-                              color: AppColors.instance.grey,
-                            ),
+                        style: AppTextStyle(
+                          context,
+                        ).kBodyDefault.copyWith(color: AppColors.instance.grey),
                       ),
                       TextSpan(
                         text: versionStatus.localVersion,
-                        style: AppTextStyle(context).kBodyDefault.copyWith(
-                              fontWeight: FontWeight.bold,
-                            ),
+                        style: AppTextStyle(
+                          context,
+                        ).kBodyDefault.copyWith(fontWeight: FontWeight.bold),
                       ),
                     ],
                   ),
@@ -203,7 +204,8 @@ class AppCheckVersion {
         return await _getAndroidStoreVersion(context);
       } else {
         debugPrint(
-            'แพ็คเกจนี้ยังไม่รองรับแพลตฟอร์ม "${Platform.operatingSystem}"');
+          'แพ็คเกจนี้ยังไม่รองรับแพลตฟอร์ม "${Platform.operatingSystem}"',
+        );
         return null;
       }
     } catch (e) {
@@ -260,11 +262,13 @@ class AppCheckVersion {
       final globalProvider = context.read<GlobalProvider>();
       final response = await globalProvider.getConfigsMasterDataList();
       final item = response.firstWhere(
-        (element) => element.name == "ANDROID_ESERVICE",
+        (element) => element.name == "ANDROID_POON_ESTOCK",
         orElse: () => ConfigsMaster(),
       );
-      final uri = Uri.https("play.google.com", "/store/apps/details",
-          {"id": globalProvider.packageName, "hl": "th_TH"});
+      final uri = Uri.https("play.google.com", "/store/apps/details", {
+        "id": globalProvider.packageName,
+        "hl": "th_TH",
+      });
 
       return VersionStatus._(
         localVersion: _getCleanVersion(globalProvider.appVersion),
@@ -283,7 +287,7 @@ class AppCheckVersion {
       final globalProvider = context.read<GlobalProvider>();
       final response = await globalProvider.getConfigsMasterDataList();
       final item = response.firstWhere(
-        (element) => element.name == "IOS_ESERVICE",
+        (element) => element.name == "IOS_POON_ESTOCK",
         orElse: () => ConfigsMaster(),
       );
       final id = globalProvider.packageName;
